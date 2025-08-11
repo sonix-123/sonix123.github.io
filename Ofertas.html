@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas - GLITCHCORE</title>
+  <link rel="stylesheet" href="styles.css">
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #00f0ff;
+            --secondary-color: #ff00ff;
+            --dark-bg: #121212;
+            --light-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-glow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 15px var(--primary-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23121212"/><path d="M 0 100 L 100 0 L 200 100 L 100 200 Z" stroke="%23ff00ff" stroke-width="1" fill="none" opacity=".1"/><path d="M 50 100 L 100 50 L 150 100 L 100 150 Z" stroke="%2300f0ff" stroke-width="1" fill="none" opacity=".1"/></svg>');
+            background-size: 50px;
+            background-attachment: fixed;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            filter: drop-shadow(0 0 5px var(--primary-color));
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-shadow: var(--accent-glow);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            box-shadow: 0 0 5px var(--secondary-color);
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .Ofertas h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px var(--secondary-color);
+        }
+
+        .Ofertas p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--light-bg);
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+
+        .card h4 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: var(--dark-bg);
+            padding: 12px 24px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-top: 2px solid var(--secondary-color);
+            margin-top: 2rem;
+            box-shadow: 0 -4px 15px rgba(255, 0, 255, 0.2);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            .zona-gamer h2 {
+                font-size: 2.5rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <h1>GLITCHCORE</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="Prototipo 2.0.html">🏠</a></li>
+        <li><a href="categorias.html">Categorías</a></li>
+        <li><a href="ofertas.html">Ofertas</a></li>
+        <li><a href="zona_gamer.html">Zona Gamer</a></li>
+        <li><a href="novedades.html">📰</a></li>
+        <li><a href="carrito.html">🛒</a></li>
+        <li><a href="contacto.html">📞</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="ofertas">
+    <div class="grid">
+      <div class="card">
+        <img src="images/mouse.png" alt="Mouse RGB">
+        <h4>Mouse RGB</h4>
+        <p><span class="precio-descuento">$24.99</span> <del>$39.99</del></p>
+        <button onclick="agregarCarrito()">Agregar al carrito</button>
+      </div>
+      <div class="card">
+        <img src="images/audifonos.png" alt="Audífonos">
+        <h4>Audífonos Gamer</h4>
+        <p><span class="precio-descuento">$34.99</span> <del>$49.99</del></p>
+        <button onclick="agregarCarrito()">Agregar al carrito</button>
+      </div>
+      <div class="card">
+        <img src="images/teclado.png" alt="Teclado">
+        <h4>Teclado Mecánico</h4>
+        <p><span class="precio-descuento">$59.99</span> <del>$79.99</del></p>
+        <button onclick="agregarCarrito()">Agregar al carrito</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 GLITCHCORE | Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    function agregarCarrito() {
+      alert("Producto agregado al carrito");
+    }
+  </script>
+
+</body>
+</html>

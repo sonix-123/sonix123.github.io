@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLITCHCORE</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+    :root {
+      --primary-color: #00f0ff;
+      --secondary-color: #ff00ff;
+      --dark-bg: #121212;
+      --light-bg: #1e1e1e;
+      --text-color: #e0e0e0;
+      --accent-glow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color), 0 0 15px var(--primary-color);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Orbitron', Arial, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23121212"/><path d="M 0 100 L 100 0 L 200 100 L 100 200 Z" stroke="%23ff00ff" stroke-width="1" fill="none" opacity=".1"/><path d="M 50 100 L 100 50 L 150 100 L 100 150 Z" stroke="%2300f0ff" stroke-width="1" fill="none" opacity=".1"/></svg>');
+      background-size: 50px;
+      background-attachment: fixed;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(18, 18, 18, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2);
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo img {
+      height: 120px;
+      width: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #1a1a1a;
+      box-shadow: 0 0 20px #ff00ff88;
+      filter: drop-shadow(0 0 5px var(--primary-color));
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    .logo h1 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      text-shadow: var(--accent-glow);
+    }
+
+     nav ul {
+      display: flex;
+      list-style: none;
+      gap: 0.7rem; /* Menos espacio entre botones */
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-size: 0.92rem;           /* Más pequeño */
+      padding: 0.22rem 0.55rem;     /* Más pequeño pero visible */
+      position: relative;
+      transition: color 0.3s ease;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #1e5cff 60%, #ff00f7 100%);
+      font-weight: bold;
+      box-shadow: 0 2px 8px #0006;
+      border: none;
+      display: inline-block;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background-color: var(--secondary-color);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover {
+      color: #fff200;
+      background: linear-gradient(90deg, #ff00f7 60%, #1e5cff 100%);
+      transform: scale(1.07);
+      box-shadow: 0 4px 16px #ff00ff88;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+      box-shadow: 0 0 5px var(--secondary-color);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      margin-left: 0.5rem;
+      position: relative;
+      transition: width 0.3s;
+    }
+
+    .search-btn {
+      background: var(--light-bg);
+      border: 2px solid var(--primary-color);
+      border-radius: 50%;
+      padding: 8px;
+      cursor: pointer;
+      font-size: 1.3em;
+      color: var(--primary-color);
+      transition: border 0.2s, background 0.2s;
+      margin-left: 0;
+      margin-right: 0.3rem;
+    }
+
+    .search-btn:hover {
+      border-color: var(--secondary-color);
+      background: var(--primary-color);
+      color: #fff;
+    }
+
+    .lupa {
+      pointer-events: none;
+    }
+
+    .search-bar input {
+      width: 160px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 2px solid var(--primary-color);
+      font-size: 0.90rem;
+      background: var(--light-bg);
+      color: var(--text-color);
+      outline: none;
+      transition: border 0.2s, width 0.3s;
+      margin-left: 0.3rem;
+      display: none;
+      position: static;
+    }
+
+    .search-bar.active input {
+      display: block;
+      width: 160px;
+    }
+
+    nav {
+      transition: margin-left 0.3s;
+    }
+    .nav-compact {
+      margin-left: 0.5rem;
+      transition: margin-left 0.3s;
+    }
+    .nav-expanded {
+      margin-left: 10.5rem;
+      transition: margin-left 0.3s;
+    }
+
+    .banner {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #1a1a1a, #111);
+      border-radius: 0 0 30px 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px #0008;
+    }
+
+    .banner h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      font-size: 1.0em;
+      box-shadow: 0 2px 8px #0006;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      margin-top: 20px;
+      display: inline-block;
+      animation: bounce 1s infinite alternate;
+
+    }
+      @keyframes bounce {
+        0%, 100% {  transform: translateY(0);}
+      50% { transform: translateY(-15px); }
+      }  
+      
+    .btn:hover {
+      background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+      color: #000;
+      transform: scale(1.07);
+      box-shadow: 0 4px 16px #ff00ff88;
+    }
+
+    .categorias {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .categorias h3 {
+      font-size: 1.6em;
+      margin-bottom: 25px;
+      color: #ff00f7;
+      letter-spacing: 1px;
+    }
+
+    .grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: var(--light-bg);
+      border: 2px solid var(--secondary-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 200px;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      border-radius: 30px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border: 2px solid var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color);
+      aspect-ratio: 1 / 1;
+    }
+
+    .card h4 {
+      color: var(--primary-color);
+      font-size: 1.1em;
+      margin: 0;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 1.8rem;
+      color: var(--secondary-color);
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    footer {
+      background: var(--light-bg);
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      border-top: 2px solid var(--secondary-color);
+      margin-top: 2rem;
+      box-shadow: 0 -4px 15px rgba(255, 0, 255, 0.2);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      color: var(--text-color);
+    }
+
+    .suggestions-list {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 180px;
+      background: var(--light-bg);
+      border: 1.5px solid var(--primary-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 12px #0008;
+      z-index: 2000;
+      display: none;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+    .suggestions-list li {
+      padding: 8px 12px;
+      color: var(--primary-color);
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s;
+      list-style: none;
+    }
+    .suggestions-list li:hover {
+      background: var(--primary-color);
+      color: #111;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .card {
+        width: 90vw;
+        max-width: 300px;
+      }
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      nav a {
+        font-size: 1rem;
+      }
+      .banner h2 {
+        font-size: 2.5rem;
+      }
+      .grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .card {
+        width: 90vw;
+        max-width: 300px;
+      }
+    }
+    @media (max-width: 600px) {
+      .logo img {
+        height: 70px;
+        width: 70px;
+      }
+      .banner {
+        padding: 30px 10px 20px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado y navegación -->
+  <header>
+    <div class="header-flex">
+      <div class="logo">
+        <img src="images/logo.png" alt="GLITCHCORE Logo">
+      </div>
+      <div class="search-bar" id="searchBar">
+        <button class="search-btn" onclick="toggleBuscador()" aria-label="Buscar">
+          <span class="lupa">&#128269;</span>
+        </button>
+        <input type="text" id="buscador" placeholder="Buscar productos..." oninput="buscarProductosSugerencias()" autocomplete="off">
+        <ul class="suggestions-list" id="suggestions"></ul>
+      </div>
+      <nav id="mainNav" class="nav-compact">
+        <ul>
+          <li><a href="Prototipo 2.0.html">🏠</a></li>
+          <li><a href="categorias.html">Categorías</a></li>
+          <li><a href="ofertas.html">Ofertas</a></li>
+          <li><a href="zona_gamer.html">🎮</a></li>
+          <li><a href="novedades.html">Novedades</a></li>
+          <li><a href="carrito.html">🛒</a></li>
+          <li><a href="contacto.html">📞</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner principal -->
+  <section class="banner">
+    <h2>¡Bienvenido a tu tienda gamer favorita!</h2>
+    <marquee width="410" height="60" style="border:solid">
+      <h3>Consolas, accesorios, juegos y más</h3>
+    </marquee>
+    <br>
+    <a href="ofertas.html" class="btn">Ver Ofertas</a>
+  </section>
+
+  <!-- Categorías destacadas -->
+  <section class="categorias">
+    <h3>Categorías populares</h3>
+    <div class="grid" id="productosGrid">
+      <div class="card" data-nombre="Teclados">
+        <img src="images/teclado.png" alt="Teclados">
+        <h4>Teclados</h4>
+        <span class="only-name">Teclados</span>
+      </div>
+      <div class="card" data-nombre="Audífonos">
+        <img src="images/audifonos.png" alt="Audífonos">
+        <h4>Audífonos</h4>
+        <span class="only-name">Audífonos</span>
+      </div>
+      <div class="card" data-nombre="Mouse">
+        <img src="images/mouse.png" alt="Mouse Gamer">
+        <h4>Mouse</h4>
+        <span class="only-name">Mouse</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>© 2025 GLITCHCORE | Todos los derechos reservados</p>
+    <p>Desarrollado por el equipo GLITCHCORE</p>
+  </footer>
+
+  <script>
+  // Lista global de productos
+  const nombresProductos = [
+    "Teclados",
+    "Audífonos",
+    "Mouse",
+    "Consolas",
+    "Juegos",
+    "Accesorios",
+    "Monitores",
+    "Sillas Gamer",
+    "Tarjetas Gráficas",
+    "Procesadores",
+    "Memorias RAM",
+    "Discos Duros",
+    "Placas Base",
+    "Fuentes de Poder",
+    "Cámaras Web",
+    "Micrófonos",
+    "Controladores",
+    "Controles",
+    // Agrega más nombres si tienes más productos o secciones
+  ];
+
+  let buscadorActivo = false;
+  function toggleBuscador() {
+    const buscador = document.getElementById('buscador');
+    const searchBar = document.getElementById('searchBar');
+    const nav = document.getElementById('mainNav');
+    buscadorActivo = !buscadorActivo;
+    if (buscadorActivo) {
+      searchBar.classList.add('active');
+      nav.classList.remove('nav-compact');
+      nav.classList.add('nav-expanded');
+      buscador.style.display = 'block';
+      buscador.focus();
+    } else {
+      searchBar.classList.remove('active');
+      nav.classList.remove('nav-expanded');
+      nav.classList.add('nav-compact');
+      buscador.value = '';
+      buscador.style.display = 'none';
+      mostrarTodosProductos();
+      ocultarSugerencias();
+    }
+  }
+
+  // Sugerencias desplegables de todos los productos y secciones
+  function buscarProductosSugerencias() {
+    const input = document.getElementById('buscador').value.toLowerCase();
+    const cards = document.querySelectorAll('.card');
+    const suggestions = document.getElementById('suggestions');
+    let nombres = [];
+    nombresProductos.forEach(nombre => {
+      if (nombre.toLowerCase().includes(input) && input.length > 0) {
+        nombres.push(nombre);
+      }
+    });
+
+    // Mostrar sugerencias
+    suggestions.innerHTML = '';
+    if (nombres.length > 0) {
+      suggestions.style.display = 'block';
+      nombres.forEach(nombre => {
+        const li = document.createElement('li');
+        li.textContent = nombre;
+        li.onclick = function() {
+          document.getElementById('buscador').value = nombre;
+          mostrarSoloProducto(nombre);
+          suggestions.style.display = 'none';
+        };
+        suggestions.appendChild(li);
+      });
+    } else {
+      suggestions.style.display = 'none';
+    }
+
+    // Mostrar solo nombres en cards si hay input y es un producto real
+    cards.forEach(card => {
+      const nombre = card.getAttribute('data-nombre');
+      if (input.length > 0 && nombre && nombre.toLowerCase().includes(input)) {
+        card.style.display = '';
+        card.classList.add('only-name-mode');
+      } else if (input.length > 0) {
+        card.style.display = 'none';
+        card.classList.remove('only-name-mode');
+      } else {
+        card.style.display = '';
+        card.classList.remove('only-name-mode');
+      }
+    });
+  }
+
+  function mostrarSoloProducto(nombre) {
+    const cards = document.querySelectorAll('.card');
+    let encontrado = false;
+    cards.forEach(card => {
+      if (card.getAttribute('data-nombre') === nombre) {
+        card.style.display = '';
+        card.classList.add('only-name-mode');
+        encontrado = true;
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('only-name-mode');
+      }
+    });
+    // Si no es un producto real, no muestra nada en cards (solo sugerencia)
+    if (!encontrado) {
+      cards.forEach(card => {
+        card.style.display = 'none';
+        card.classList.remove('only-name-mode');
+      });
+    }
+  }
+
+  function ocultarSugerencias() {
+    document.getElementById('suggestions').style.display = 'none';
+  }
+
+  function mostrarTodosProductos() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.style.display = '';
+      card.classList.remove('only-name-mode');
+    });
+    ocultarSugerencias();
+  }
+
+  // Ocultar sugerencias si se hace click fuera
+  document.addEventListener('click', function(e) {
+    const searchBar = document.getElementById('searchBar');
+    if (!searchBar.contains(e.target)) {
+      ocultarSugerencias();
+    }
+  });
+  </script>
+</body>
+</html>

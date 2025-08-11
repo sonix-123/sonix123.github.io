@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso Exitoso - GLITCHCORE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-blue: #00e0ff;
+      --neon-purple: #ae00ff;
+      --neon-pink: #ff007b;
+      --neon-green: #39ff14;
+      --dark-bg: #1a1a2e;
+      --darker-bg: #0f0f1c;
+      --text-color: #e0e0e0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--darker-bg);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+
+      /* Background Image */
+      background-image: url('https://raw.githubusercontent.com/manuelguzman-dev/img-web/main/cool-gaming-background-j6m5g677g.jpg'); /* REEMPLAZA ESTE URL con tu imagen */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: 1;
+    }
+
+    .message-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px var(--neon-blue),
+                  0 0 10px var(--neon-purple) inset;
+      width: 400px;
+      max-width: 90%;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      border: 2px solid var(--neon-blue);
+      animation: pulse-border 2s infinite alternate; /* Animación de pulsación */
+    }
+
+    @keyframes pulse-border {
+      from { border-color: var(--neon-blue); box-shadow: 0 0 20px var(--neon-blue), 0 0 8px var(--neon-purple) inset; }
+      to { border-color: var(--neon-pink); box-shadow: 0 0 40px var(--neon-pink), 0 0 15px var(--neon-blue) inset; }
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--neon-green); /* Color de éxito */
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green);
+      font-size: 2em;
+      letter-spacing: 2px;
+    }
+
+    p {
+      color: var(--text-color);
+      font-size: 1.1em;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .action-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: var(--neon-purple);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px var(--neon-purple);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .action-button:hover {
+      background-color: var(--neon-pink);
+      box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="message-container">
+    <h1 id="status-title"></h1>
+    <p id="status-message"></p>
+    <a href="Prototipo 2.0.html" class="action-button">IR A LA PAGINA</a>
+  </div>
+
+  <script>
+    const statusTitle = document.getElementById("status-title");
+    const statusMessage = document.getElementById("status-message");
+    const lastActionUser = localStorage.getItem("lastActionUser");
+    const lastActionType = localStorage.getItem("lastActionType"); // "login" o "registro"
+
+    // Variable para almacenar el nombre de usuario capitalizado o un valor predeterminado
+    const displayUser = lastActionUser ? lastActionUser.toUpperCase() : 'JUGADOR';
+
+    if (lastActionType === "login") {
+        statusTitle.textContent = "¡ACCESO CONCEDIDO!";
+        // Usamos concatenación de cadenas aquí
+        statusMessage.textContent = "BIENVENIDO DE VUELTA, " + displayUser + "!";
+    } else if (lastActionType === "registro") {
+        statusTitle.textContent = "¡REGISTRO EXITOSO!";
+        // Usamos concatenación de cadenas aquí
+        statusMessage.textContent = "¡FELICITACIONES, " + displayUser + "! TU CUENTA HA SIDO CREADA.";
+    } else {
+        // En caso de acceso directo o error
+        statusTitle.textContent = "¡BIENVENIDO!";
+        statusMessage.textContent = "PREPÁRATE PARA TU PRÓXIMA MISIÓN.";
+    }
+
+    // Opcional: limpiar las variables de lastAction después de usarlas
+    localStorage.removeItem("lastActionUser");
+    localStorage.removeItem("lastActionType");
+
+    // Redirigir a la página de inicio después de 5 segundos
+    setTimeout(() => {
+      window.location.href = "Prototipo 2.0.html"; // Cambia esto a la URL de tu página de inicio
+    }, 5000);
+  </script>
+</body>
+</html>

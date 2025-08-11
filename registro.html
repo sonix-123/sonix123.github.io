@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Cuenta - GLITCHCORE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-blue: #00e0ff;
+      --neon-purple: #ae00ff;
+      --neon-pink: #ff007b;
+      --neon-green: #39ff14;
+      --dark-bg: #1a1a2e;
+      --darker-bg: #0f0f1c;
+      --text-color: #e0e0e0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--darker-bg);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+
+      /* Background Image */
+      background-image: url('https://raw.githubusercontent.com/manuelguzman-dev/img-web/main/cool-gaming-background-j6m5g677g.jpg'); /* REEMPLAZA ESTE URL con tu imagen */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: 1;
+    }
+
+    .signup-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px var(--neon-green),
+                  0 0 10px var(--neon-blue) inset;
+      width: 350px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      border: 2px solid var(--neon-green);
+      transition: all 0.3s ease;
+    }
+
+    .signup-container:hover {
+      box-shadow: 0 0 40px var(--neon-pink),
+                  0 0 15px var(--neon-blue) inset;
+      border-color: var(--neon-pink);
+    }
+
+    h2 {
+      font-family: 'Press Start 2P', cursive;
+      color: var(--neon-green);
+      margin-bottom: 25px;
+      text-shadow: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green);
+      font-size: 1.8em;
+      letter-spacing: 2px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 20px);
+      padding: 12px 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid var(--neon-purple);
+      background-color: var(--dark-bg);
+      color: var(--neon-blue);
+      font-size: 1em;
+      box-shadow: 0 0 5px rgba(0, 224, 255, 0.5);
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: var(--neon-pink);
+      box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+    }
+
+    input::placeholder {
+      color: rgba(0, 224, 255, 0.6);
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--neon-green);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px var(--neon-green);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2afc0f;
+      box-shadow: 0 0 20px #2afc0f, 0 0 30px #2afc0f;
+    }
+
+    p {
+      color: var(--text-color);
+      margin-top: 25px;
+      font-size: 0.95em;
+    }
+
+    a {
+      color: var(--neon-blue);
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 5px var(--neon-blue);
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--neon-pink);
+      text-shadow: 0 0 8px var(--neon-pink);
+    }
+
+    @media (max-width: 400px) {
+      .signup-container {
+        width: 90%;
+        padding: 25px;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>REGISTRARSE</h2>
+    <form id="signupForm">
+      <div class="input-group">
+        <input type="text" id="username" placeholder="NOMBRE DE USUARIO" required />
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="CONTRASEÑA" required />
+      </div>
+      <button type="submit" class="submit-btn">CREAR CUENTA</button>
+    </form>
+    <p>
+      ¿YA TIENES ACCESO?
+      <a href="login.html">INICIA SESIÓN AQUÍ</a>
+    </p>
+  </div>
+</body>
+  <script>
+  document.getElementById("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+      alert("¡ERROR! POR FAVOR, COMPLETA TODOS LOS CAMPOS PARA CREAR TU CUENTA.");
+      return;
+    }
+
+    // Guardar datos en localStorage
+    localStorage.setItem("usuario", username);
+    localStorage.setItem("contraseña", password);
+    localStorage.setItem("lastActionUser", username);
+    localStorage.setItem("lastActionType", "registro");
+
+    alert("¡Registro exitoso! Tu cuenta ha sido creada.");
+
+    // Redirige a página de confirmación
+    window.location.href = "confirmacion-login-registro.html";
+  });
+</script>
+</html>
